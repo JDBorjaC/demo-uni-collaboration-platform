@@ -32,16 +32,14 @@ export function NotificationsMenu() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="size-4" />
-          {unreadCount > 0 && (
-            <Badge className="absolute -right-1 -top-1 h-5 min-w-5 justify-center rounded-full px-1 text-[10px]">
-              {unreadCount > 9 ? "9+" : unreadCount}
-            </Badge>
-          )}
-          <span className="sr-only">Notifications</span>
-        </Button>
+      <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="relative" />}>
+        <Bell className="size-4" />
+        {unreadCount > 0 && (
+          <Badge className="absolute -right-1 -top-1 h-5 min-w-5 justify-center rounded-full px-1 text-[10px]">
+            {unreadCount > 9 ? "9+" : unreadCount}
+          </Badge>
+        )}
+        <span className="sr-only">Notifications</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
         <DropdownMenuLabel className="flex items-center justify-between">
@@ -58,16 +56,18 @@ export function NotificationsMenu() {
         ) : (
           <div className="max-h-96 overflow-y-auto">
             {notifications.map((n) => (
-              <DropdownMenuItem key={n.id} asChild className="cursor-pointer flex-col items-start gap-0.5 py-2">
-                <Link href={n.link ?? "#"} onClick={() => handleOpenNotification(n.id)}>
-                  <div className="flex w-full items-center gap-2">
-                    {!n.isRead && <span className="size-1.5 shrink-0 rounded-full bg-primary" />}
-                    <span className={`text-sm ${n.isRead ? "text-muted-foreground" : "font-medium text-foreground"}`}>
-                      {n.title}
-                    </span>
-                  </div>
-                  <span className="pl-3.5 text-xs text-muted-foreground">{n.message}</span>
-                </Link>
+              <DropdownMenuItem
+                key={n.id}
+                render={<Link href={n.link ?? "#"} onClick={() => handleOpenNotification(n.id)} />}
+                className="cursor-pointer flex-col items-start gap-0.5 py-2"
+              >
+                <div className="flex w-full items-center gap-2">
+                  {!n.isRead && <span className="size-1.5 shrink-0 rounded-full bg-primary" />}
+                  <span className={`text-sm ${n.isRead ? "text-muted-foreground" : "font-medium text-foreground"}`}>
+                    {n.title}
+                  </span>
+                </div>
+                <span className="pl-3.5 text-xs text-muted-foreground">{n.message}</span>
               </DropdownMenuItem>
             ))}
           </div>

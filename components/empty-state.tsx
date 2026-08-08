@@ -18,8 +18,14 @@ export function EmptyState({
       <p className="font-medium text-foreground">{title}</p>
       <p className="max-w-xs text-sm text-muted-foreground">{description}</p>
       {actionHref && actionLabel && (
-        <Button asChild variant="outline" size="sm" className="mt-2">
-          <Link href={actionHref}>{actionLabel}</Link>
+        <Button
+          render={<Link href={actionHref} />}
+          nativeButton={false}
+          variant="outline"
+          size="sm"
+          className="mt-2"
+        >
+          {actionLabel}
         </Button>
       )}
     </Card>

@@ -121,8 +121,13 @@ export function ProjectManageTabs({
         </div>
         <div className="flex gap-2">
           {project.status === "published" && (
-            <Button asChild variant="outline" size="sm">
-              <Link href={`/projects/${project.slug}`}>View public page</Link>
+            <Button
+              render={<Link href={`/projects/${project.slug}`} />}
+              nativeButton={false}
+              variant="outline"
+              size="sm"
+            >
+              View public page
             </Button>
           )}
           {(project.status === "draft" || project.status === "rejected") && (
@@ -209,10 +214,8 @@ export function ProjectManageTabs({
                   </Badge>
                   {m.member.roleInProject !== "leader" && (
                     <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="size-8">
-                          <MoreHorizontal className="size-4" />
-                        </Button>
+                      <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="size-8" />}>
+                        <MoreHorizontal className="size-4" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         {m.member.roleInProject === "contributor" ? (

@@ -90,13 +90,15 @@ export function SiteHeader({
           </Link>
           <NotificationsMenu />
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring">
-                <Avatar className="size-8">
-                  <AvatarImage src={user.image ?? undefined} alt={user.name} />
-                  <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
-                </Avatar>
-              </button>
+            <DropdownMenuTrigger
+              render={
+                <button className="flex items-center gap-2 rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring" />
+              }
+            >
+              <Avatar className="size-8">
+                <AvatarImage src={user.image ?? undefined} alt={user.name} />
+                <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+              </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel className="flex flex-col gap-1">
@@ -107,11 +109,11 @@ export function SiteHeader({
                 </Badge>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/dashboard/projects/new">New project</Link>
+              <DropdownMenuItem render={<Link href="/dashboard/projects/new" />}>
+                New project
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/projects">Browse projects</Link>
+              <DropdownMenuItem render={<Link href="/projects" />}>
+                Browse projects
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">

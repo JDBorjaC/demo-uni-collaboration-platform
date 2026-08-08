@@ -20,6 +20,8 @@ export const auth = betterAuth({
     ...(process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
       : []),
+    // TEMP-TESTING-ORIGIN
+    'https://sb-5aedlzzeya5k.vercel.run',
   ],
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days

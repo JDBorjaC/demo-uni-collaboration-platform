@@ -31,11 +31,9 @@ export default async function DashboardPage() {
             Track your projects, applications, and contributions in one place.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/projects/new">
-            <Plus className="size-4" />
-            New project
-          </Link>
+        <Button render={<Link href="/dashboard/projects/new" />} nativeButton={false}>
+          <Plus className="size-4" />
+          New project
         </Button>
       </div>
 

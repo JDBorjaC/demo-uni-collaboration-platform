@@ -74,11 +74,9 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
         if (!next) resetForm()
       }}
     >
-      <DialogTrigger asChild>
-        <Button size="sm">
-          <Plus className="size-4" data-icon="inline-start" />
-          New contribution
-        </Button>
+      <DialogTrigger render={<Button size="sm" />}>
+        <Plus className="size-4" data-icon="inline-start" />
+        New contribution
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
