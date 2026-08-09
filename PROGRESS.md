@@ -4,11 +4,11 @@
 
 ## 📌 Estado Actual
 
-- **Fase Actual**: Fase 4 – Onboarding y Panel de Usuario
-- **Estado**: 🟢 Fase 4 completada
-- **Subtarea en Curso**: —
-- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3
-- **Último Commit de Subtarea**: `feat(dashboard): expand with followed projects, application status, activity feed and quick actions (Tarea 4.2)`
+- **Fase Actual**: Fase 5 – Gestión de Proyectos, Colaboradores y Contribuciones
+- **Estado**: 🟡 En progreso
+- **Subtarea en Curso**: Tarea 5.2
+- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1
+- **Último Commit de Subtarea**: `feat(projects): add objectives, collaborationNeeds and affiliation to form and persist in DB (Tarea 5.1)`
 
 ---
 
@@ -33,7 +33,7 @@
 - [x] **Tarea 4.3**: Conexión de Notificaciones en tiempo real (`components/notifications-menu.tsx`).
 
 ### Fase 5: Gestión de Proyectos, Colaboradores y Contribuciones
-- [ ] **Tarea 5.1**: Formulario de Creación/Edición de Proyecto (`components/project-form.tsx`).
+- [x] **Tarea 5.1**: Formulario de Creación/Edición de Proyecto (`components/project-form.tsx`) — campos objectives, collaborationNeeds (chips) y universityAffiliationId; persistencia en DB.
 - [ ] **Tarea 5.2**: Panel de Control del Líder y Gestión de Miembros (`app/dashboard/projects/[id]/page.tsx`).
 - [ ] **Tarea 5.3**: Formulario de Contribuciones con Edición y Retiro (`components/new-contribution-dialog.tsx`).
 
@@ -64,4 +64,5 @@
 | **Tarea 4.1** | Mejora de Onboarding: selector de rol visual con 5 opciones, chips de habilidades con sugerencias, validación de dominio institucional en vivo (verde/ámbar), counter bio, UI premium | ✅ Completado | `feat(onboarding): rewrite form with extended roles, skills chip input, live domain validation and premium UI (Tarea 4.1)` | 2026-08-09 |
 | **Tarea 4.2** | Dashboard expandido: sección Proyectos Seguidos, feed de actividad reciente (notificaciones reales), estado de postulaciones en curso, quick-actions, diseño premium 3 columnas | ✅ Completado | `feat(dashboard): expand with followed projects, application status, activity feed and quick actions (Tarea 4.2)` | 2026-08-09 |
 | **Tarea 4.3** | Notificaciones dinámicas: `notifications-menu.tsx` ya conectado a `getMyNotifications()` con polling 15s y mark-as-read real desde la tabla `notifications` | ✅ Completado | (ya implementado — sin commit adicional) | 2026-08-09 |
+| **Tarea 5.1** | Formulario de proyecto extendido: campos `objectives` (textarea), `collaborationNeeds` (chip input dinámico), `universityAffiliationId` (selector); persistencia en `createProject` y `updateProject`; `new/page.tsx` y `[id]/page.tsx` cargan `affiliations` | ✅ Completado | `feat(projects): add objectives, collaborationNeeds and affiliation to form and persist in DB (Tarea 5.1)` | 2026-08-09 |
 
