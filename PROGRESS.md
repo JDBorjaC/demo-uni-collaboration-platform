@@ -4,12 +4,12 @@
 
 ## 📌 Estado Actual
 
-- **Fase Actual**: Fase 7 – Componentes Reutilizables, Polish UX y Verificación
-- **Estado**: 🟢 Fase 6 completada
+- **Fase Actual**: Finalizado
+- **Estado**: 🟢 Todas las fases completadas
 - **Subtarea en Curso**: —
-- **Siguiente Subtarea Pendiente**: Tarea 7.1 (Componentes UI genéricos: data-table y confirm-dialog)
-- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.3, 6.1–6.4
-- **Último Commit de Subtarea**: `feat(admin): add audit logs page with revert dialog requiring reason and action logging (Tarea 6.4)`
+- **Siguiente Subtarea Pendiente**: —
+- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.3, 6.1–6.4, 7.1–7.3
+- **Último Commit de Subtarea**: `fix(ui): resolve ConfirmDialog type error and verify final build (Tarea 7.3)`
 
 ---
 
@@ -45,9 +45,9 @@
 - [x] **Tarea 6.4**: Log de Auditoría y Reversión con Motivo (`app/admin/audit-logs/page.tsx`).
 
 ### Fase 7: Componentes Reutilizables, Polish UX y Verificación
-- [ ] **Tarea 7.1**: Componentes de UI genéricos (`components/data-table.tsx` y `components/confirm-dialog.tsx`).
-- [ ] **Tarea 7.2**: Manejo de Estados de Carga (`loading.tsx`) y Errores (`error.tsx`).
-- [ ] **Tarea 7.3**: Verificación de compilación final (`tsc --noEmit` y `pnpm build`).
+- [x] **Tarea 7.1**: Componentes de UI genéricos (`components/data-table.tsx` y `components/confirm-dialog.tsx`).
+- [x] **Tarea 7.2**: Manejo de Estados de Carga (`loading.tsx`) y Errores (`error.tsx`).
+- [x] **Tarea 7.3**: Verificación de compilación final (`tsc --noEmit` y `pnpm build`).
 
 ---
 
@@ -72,4 +72,6 @@
 | **Tarea 6.2** | Cola de Moderación: página `app/admin/moderation/page.tsx`, componente `admin-moderation-queue.tsx` con tarjetas expandibles, flujo de aprobación/rechazo con comentario, remoción optimista. Guard extendido a `requireModeratorOrAdmin` en `reviewProject` y `getPendingModerationProjects`. | ✅ Completado | `feat(admin): add moderation queue page with approve/reject flows and comment feedback (Tarea 6.2)` | 2026-08-09 |
 | **Tarea 6.3** | Página `app/admin/users/page.tsx` y componente `admin-users-table.tsx`: búsqueda por nombre/email/institución, filtros de rol y verificación, selector inline de rol con dropdown, acciones de verificar/rechazar/restablecer por usuario con estado local optimista y toast feedback. | ✅ Completado | `feat(admin): add users management page with search, role selector and verification controls (Tarea 6.3)` | 2026-08-09 |
 | **Tarea 6.4** | Página `app/admin/audit-logs/page.tsx` y componente `admin-audit-logs.tsx`: tabla de eventos color-coded por tipo, filtro por entidad y búsqueda full-text, timestamps relativos, diálogo de reversión con campo de motivo obligatorio, remoción optimista post-reversión. Server Action `revertAuditEntry` con restauración de `previousData` y log del revert. | ✅ Completado | `feat(admin): add audit logs page with revert dialog requiring reason and action logging (Tarea 6.4)` | 2026-08-09 |
-
+| **Tarea 7.1** | Componentes de UI genéricos: `data-table.tsx` con ordenamiento y paginación custom y `confirm-dialog.tsx` basado en `AlertDialog` para modales de confirmación. | ✅ Completado | `feat(ui): add generic data-table and confirm-dialog components (Tarea 7.1)` | 2026-08-09 |
+| **Tarea 7.2** | Manejo de estados de carga (`loading.tsx`) y errores (`error.tsx`) personalizados y estéticos para los segmentos principales (`app/projects/`, `app/dashboard/` y `app/admin/`). | ✅ Completado | `feat(ux): add loading and error boundaries for main segments (Tarea 7.2)` | 2026-08-09 |
+| **Tarea 7.3** | Verificación de compilación final: solución de errores de TypeScript (reemplazo de `asChild` por `render` prop en `AlertDialogTrigger` para Base UI) | ✅ Completado | `fix(ui): resolve ConfirmDialog type error and verify final build (Tarea 7.3)` | 2026-08-09 |
