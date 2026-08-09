@@ -5,10 +5,10 @@
 ## 📌 Estado Actual
 
 - **Fase Actual**: Fase 3 – Experiencia Pública y Descubrimiento
-- **Estado**: 🟢 Fase 2 completada
+- **Estado**: 🟡 Tarea 3.1 completada
 - **Subtarea en Curso**: —
-- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1
-- **Último Commit de Subtarea**: `feat(seed): create scripts/seed.ts with realistic demo data and add db:seed script (Tarea 2.1)`
+- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1, **3.1**
+- **Último Commit de Subtarea**: `feat(landing): build full landing page with hero, features, categories and recent projects (Tarea 3.1)`
 
 ---
 
@@ -23,7 +23,7 @@
 - [x] **Tarea 2.1**: Creación de `scripts/seed.ts` con datos demo realistas (usuarios, categorías, instituciones, proyectos, postulaciones, contribuciones).
 
 ### Fase 3: Experiencia Pública y Descubrimiento (Landing & Catálogo)
-- [ ] **Tarea 3.1**: Rediseño e implementación de Landing Page pública (`app/page.tsx`).
+- [x] **Tarea 3.1**: Rediseño e implementación de Landing Page pública (`app/page.tsx`).
 - [ ] **Tarea 3.2**: Página de exploración y búsqueda de proyectos (`app/projects/page.tsx`).
 - [ ] **Tarea 3.3**: Vista detallada pública de proyecto (`app/projects/[slug]/page.tsx`).
 
@@ -57,6 +57,6 @@
 | **Tarea 1.1** | Refactorización de `lib/db/schema.ts` (Roles extendidos, skills, objetivos, tipo contribución, audit fields) | ✅ Completado | `feat(db): update schema with extended roles, skills, objectives, contribution types, and audit fields (Tarea 1.1)` | 2026-08-09 |
 | **Tarea 1.2** | Actualización de Schemas Zod (`lib/validations.ts`) y Helper de Permisos (`lib/permissions.ts`) | ✅ Completado | `feat(validations): update Zod schemas and permission helpers for extended roles and revert actions (Tarea 1.2)` | 2026-08-09 |
 | **Tarea 1.3** | Configuración de Drizzle Kit, generación de SQL migrations y script `db:push` | ✅ Completado | `feat(db): configure drizzle-kit, generate migration SQL files, and add db:push script (Tarea 1.3)` | 2026-08-09 |
-
-
+| **Tarea 2.1** | Creación de `scripts/seed.ts` con datos demo realistas (usuarios, categorías, instituciones, proyectos) | ✅ Completado | `feat(seed): create scripts/seed.ts with realistic demo data and add db:seed script (Tarea 2.1)` | 2026-08-09 |
+| **Tarea 3.1** | Landing Page pública (`app/page.tsx`): hero con gradiente, stats, 6 features, categorías dinámicas desde DB, proyectos recientes, CTA banner y footer | ✅ Completado | `feat(landing): build full landing page with hero, features, categories and recent projects (Tarea 3.1)` | 2026-08-09 |
 
