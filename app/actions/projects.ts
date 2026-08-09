@@ -210,3 +210,35 @@ export async function reviewProject(input: unknown): Promise<ActionResult> {
   revalidatePath("/projects")
   return { success: true }
 }
+
+export async function subscribeToProject(projectId: string): Promise<ActionResult> {
+  const userId = await getUserId()
+
+  const { projectSubscriptions } = await import("@/lib/db/schema")
+
+  const [existing] = await db
+    .select()
+    .from(projectSubscriptions)
+    .where(and(eq(projectSubscriptions.projectId, projectId), eq(projectSubscriptions.userId, userId)))
+    .limit(1)
+
+  if (existing) return { success: false, error: "Already following this project" }
+
+  await db.insert(projectSubscriptions).values({ id: nanoid(), projectId, userId })
+  revalidatePath(`/projects`)
+  return { success: true }
+}
+
+export async function unsubscribeFromProject(projectId: string): Promise<ActionResult> {
+  const userId = await getUserId()
+
+  const { projectSubscriptions } = await import("@/lib/db/schema")
+
+  await db
+    .delete(projectSubscriptions)
+    .where(and(eq(projectSubscriptions.projectId, projectId), eq(projectSubscriptions.userId, userId)))
+
+  revalidatePath(`/projects`)
+  return { success: true }
+}
+

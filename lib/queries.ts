@@ -5,6 +5,7 @@ import {
   contributions,
   profiles,
   projectMembers,
+  projectSubscriptions,
   projects,
   universityAffiliations,
   user,
@@ -161,4 +162,42 @@ export async function getPublishedProjectsPaginated(params?: {
   const total = rows.length
   const data = rows.slice(offset, offset + limit)
   return { data, total, page, limit, totalPages: Math.ceil(total / limit) }
+}
+
+export async function getApprovedContributions(projectId: string) {
+  return db
+    .select({
+      contribution: contributions,
+      memberName: user.name,
+      roleInProject: projectMembers.roleInProject,
+    })
+    .from(contributions)
+    .innerJoin(projectMembers, eq(contributions.memberId, projectMembers.id))
+    .innerJoin(user, eq(projectMembers.userId, user.id))
+    .where(and(eq(contributions.projectId, projectId), eq(contributions.status, "approved")))
+    .orderBy(desc(contributions.createdAt))
+}
+
+export async function getUserProjectSubscription(projectId: string, userId: string) {
+  const [row] = await db
+    .select()
+    .from(projectSubscriptions)
+    .where(and(eq(projectSubscriptions.projectId, projectId), eq(projectSubscriptions.userId, userId)))
+    .limit(1)
+  return row ?? null
+}
+
+export async function getUserPendingApplication(projectId: string, userId: string) {
+  const [row] = await db
+    .select()
+    .from(collaborationApplications)
+    .where(
+      and(
+        eq(collaborationApplications.projectId, projectId),
+        eq(collaborationApplications.applicantId, userId),
+        eq(collaborationApplications.status, "pending"),
+      ),
+    )
+    .limit(1)
+  return row ?? null
 }
