@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/lib/db"
-import { moderationReviews, projectMembers, projects, projectStatusHistory } from "@/lib/db/schema"
+import { moderationReviews, projectMembers, projects, projectStatusHistory, projectSubscriptions } from "@/lib/db/schema"
 import { getCurrentUserWithProfile, getUserId, requireAdmin } from "@/lib/permissions"
 import { logAudit } from "@/lib/audit"
 import { createProjectSchema, updateProjectSchema, reviewDecisionSchema } from "@/lib/validations"
@@ -37,6 +37,16 @@ export async function getMyMemberships() {
     .innerJoin(projects, eq(projectMembers.projectId, projects.id))
     .where(and(eq(projectMembers.userId, userId), eq(projectMembers.status, "active")))
     .orderBy(desc(projectMembers.joinedAt))
+}
+
+export async function getMySubscriptions() {
+  const userId = await getUserId()
+  return db
+    .select({ subscription: projectSubscriptions, project: projects })
+    .from(projectSubscriptions)
+    .innerJoin(projects, eq(projectSubscriptions.projectId, projects.id))
+    .where(eq(projectSubscriptions.userId, userId))
+    .orderBy(desc(projectSubscriptions.createdAt))
 }
 
 export async function createProject(input: unknown): Promise<ActionResult<{ slug: string }>> {
