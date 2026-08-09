@@ -5,10 +5,10 @@
 ## 📌 Estado Actual
 
 - **Fase Actual**: Fase 3 – Experiencia Pública y Descubrimiento
-- **Estado**: 🟡 Tarea 3.2 completada
+- **Estado**: 🟢 Fase 3 completada
 - **Subtarea en Curso**: —
-- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1, 3.1, **3.2**
-- **Último Commit de Subtarea**: `feat(projects): add public projects catalog with search, filters and pagination (Tarea 3.2)`
+- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1, 3.1, 3.2, **3.3**
+- **Último Commit de Subtarea**: `feat(project-detail): add public project detail page with apply modal, follow button and contributions wall (Tarea 3.3)`
 
 ---
 
@@ -25,7 +25,7 @@
 ### Fase 3: Experiencia Pública y Descubrimiento (Landing & Catálogo)
 - [x] **Tarea 3.1**: Rediseño e implementación de Landing Page pública (`app/page.tsx`).
 - [x] **Tarea 3.2**: Página de exploración y búsqueda de proyectos (`app/projects/page.tsx`).
-- [ ] **Tarea 3.3**: Vista detallada pública de proyecto (`app/projects/[slug]/page.tsx`).
+- [x] **Tarea 3.3**: Vista detallada pública de proyecto (`app/projects/[slug]/page.tsx`).
 
 ### Fase 4: Onboarding y Panel de Usuario (Dashboard)
 - [ ] **Tarea 4.1**: Mejora de Onboarding (`app/onboarding/page.tsx` & `components/onboarding-form.tsx`).
@@ -60,4 +60,5 @@
 | **Tarea 2.1** | Creación de `scripts/seed.ts` con datos demo realistas (usuarios, categorías, instituciones, proyectos) | ✅ Completado | `feat(seed): create scripts/seed.ts with realistic demo data and add db:seed script (Tarea 2.1)` | 2026-08-09 |
 | **Tarea 3.1** | Landing Page pública (`app/page.tsx`): hero con gradiente, stats, 6 features, categorías dinámicas desde DB, proyectos recientes, CTA banner y footer | ✅ Completado | `feat(landing): build full landing page with hero, features, categories and recent projects (Tarea 3.1)` | 2026-08-09 |
 | **Tarea 3.2** | Catálogo público de proyectos (`app/projects/page.tsx`): buscador debounced, filtros de categoría y universidad, paginación por URL, skeleton loading, estado vacío | ✅ Completado | `feat(projects): add public projects catalog with search, filters and pagination (Tarea 3.2)` | 2026-08-09 |
+| **Tarea 3.3** | Vista detallada de proyecto (`app/projects/[slug]/page.tsx`): hero con cover, objetivos, necesidades, equipo, muro de contribuciones aprobadas, modal de solicitud y botón seguir/dejar de seguir | ✅ Completado | `feat(project-detail): add public project detail page with apply modal, follow button and contributions wall (Tarea 3.3)` | 2026-08-09 |
 
