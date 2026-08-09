@@ -52,6 +52,8 @@ export async function completeOnboarding(input: unknown): Promise<OnboardingResu
       .set({
         role,
         bio: bio ?? null,
+        skills: parsed.data.skills.length > 0 ? parsed.data.skills : null,
+        institutionalEmail,
         universityAffiliationId,
         verificationStatus: isAllowedDomain ? "verified" : "pending",
         updatedAt: now,
@@ -63,6 +65,8 @@ export async function completeOnboarding(input: unknown): Promise<OnboardingResu
       userId,
       role,
       bio: bio ?? null,
+      skills: parsed.data.skills.length > 0 ? parsed.data.skills : null,
+      institutionalEmail,
       universityAffiliationId,
       verificationStatus: isAllowedDomain ? "verified" : "pending",
     })
