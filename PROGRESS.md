@@ -5,10 +5,10 @@
 ## 📌 Estado Actual
 
 - **Fase Actual**: Fase 3 – Experiencia Pública y Descubrimiento
-- **Estado**: 🟡 Tarea 3.1 completada
+- **Estado**: 🟡 Tarea 3.2 completada
 - **Subtarea en Curso**: —
-- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1, **3.1**
-- **Último Commit de Subtarea**: `feat(landing): build full landing page with hero, features, categories and recent projects (Tarea 3.1)`
+- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1, 3.1, **3.2**
+- **Último Commit de Subtarea**: `feat(projects): add public projects catalog with search, filters and pagination (Tarea 3.2)`
 
 ---
 
@@ -24,7 +24,7 @@
 
 ### Fase 3: Experiencia Pública y Descubrimiento (Landing & Catálogo)
 - [x] **Tarea 3.1**: Rediseño e implementación de Landing Page pública (`app/page.tsx`).
-- [ ] **Tarea 3.2**: Página de exploración y búsqueda de proyectos (`app/projects/page.tsx`).
+- [x] **Tarea 3.2**: Página de exploración y búsqueda de proyectos (`app/projects/page.tsx`).
 - [ ] **Tarea 3.3**: Vista detallada pública de proyecto (`app/projects/[slug]/page.tsx`).
 
 ### Fase 4: Onboarding y Panel de Usuario (Dashboard)
@@ -59,4 +59,5 @@
 | **Tarea 1.3** | Configuración de Drizzle Kit, generación de SQL migrations y script `db:push` | ✅ Completado | `feat(db): configure drizzle-kit, generate migration SQL files, and add db:push script (Tarea 1.3)` | 2026-08-09 |
 | **Tarea 2.1** | Creación de `scripts/seed.ts` con datos demo realistas (usuarios, categorías, instituciones, proyectos) | ✅ Completado | `feat(seed): create scripts/seed.ts with realistic demo data and add db:seed script (Tarea 2.1)` | 2026-08-09 |
 | **Tarea 3.1** | Landing Page pública (`app/page.tsx`): hero con gradiente, stats, 6 features, categorías dinámicas desde DB, proyectos recientes, CTA banner y footer | ✅ Completado | `feat(landing): build full landing page with hero, features, categories and recent projects (Tarea 3.1)` | 2026-08-09 |
+| **Tarea 3.2** | Catálogo público de proyectos (`app/projects/page.tsx`): buscador debounced, filtros de categoría y universidad, paginación por URL, skeleton loading, estado vacío | ✅ Completado | `feat(projects): add public projects catalog with search, filters and pagination (Tarea 3.2)` | 2026-08-09 |
 
