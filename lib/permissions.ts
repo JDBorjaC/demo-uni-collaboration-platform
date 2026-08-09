@@ -4,7 +4,13 @@ import { profiles } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
 import { headers } from "next/headers"
 
-export type Role = "student" | "faculty" | "admin"
+export type Role =
+  | "student"
+  | "project_leader"
+  | "collaborator"
+  | "moderator"
+  | "admin"
+  | "external_expert"
 export type ProjectRole = "leader" | "manager" | "contributor"
 
 export class UnauthorizedError extends Error {
@@ -45,11 +51,11 @@ export async function requireAdmin() {
   return user.id
 }
 
-/** Throws ForbiddenError unless the current user's profile role is faculty or admin. */
-export async function requireFacultyOrAdmin() {
+/** Throws ForbiddenError unless the current user's profile role is leader, moderator, or admin. */
+export async function requireLeaderModeratorOrAdmin() {
   const { user, profile } = await getCurrentUserWithProfile()
-  if (profile?.role !== "faculty" && profile?.role !== "admin") {
-    throw new ForbiddenError("Faculty or admin access required")
+  if (profile?.role !== "project_leader" && profile?.role !== "moderator" && profile?.role !== "admin") {
+    throw new ForbiddenError("Leader, moderator, or admin access required")
   }
   return user.id
 }

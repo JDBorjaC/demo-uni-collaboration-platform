@@ -2,7 +2,14 @@ import { z } from "zod"
 
 export const projectStatusValues = ["draft", "pending_review", "published", "rejected", "archived"] as const
 export const projectVisibilityValues = ["public", "university_only"] as const
-export const roleValues = ["student", "faculty", "admin"] as const
+export const roleValues = [
+  "student",
+  "project_leader",
+  "collaborator",
+  "moderator",
+  "admin",
+  "external_expert",
+] as const
 export const projectRoleValues = ["leader", "manager", "contributor"] as const
 export const applicationStatusValues = ["pending", "approved", "rejected", "withdrawn"] as const
 export const contributionStatusValues = ["submitted", "approved", "rejected", "withdrawn"] as const

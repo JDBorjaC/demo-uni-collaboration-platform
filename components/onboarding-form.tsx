@@ -84,7 +84,7 @@ export function OnboardingForm({ affiliations, userName }: { affiliations: Affil
 
             <div className="flex flex-col gap-2">
               <Label htmlFor="affiliation">Institution</Label>
-              <Select value={affiliationId} onValueChange={setAffiliationId}>
+              <Select value={affiliationId} onValueChange={(val) => setAffiliationId(val ?? "")}>
                 <SelectTrigger id="affiliation">
                   <SelectValue placeholder="Select your university" />
                 </SelectTrigger>

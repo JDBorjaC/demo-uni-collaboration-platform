@@ -19,7 +19,7 @@ import { NotificationsMenu } from "@/components/notifications-menu"
 import { LayoutDashboard, FolderKanban, Users, ClipboardCheck, ShieldCheck } from "lucide-react"
 
 type Profile = {
-  role: "student" | "faculty" | "admin"
+  role: "student" | "project_leader" | "collaborator" | "moderator" | "admin" | "external_expert"
   verificationStatus: "pending" | "verified" | "rejected"
 }
 

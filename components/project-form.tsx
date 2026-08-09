@@ -95,7 +95,7 @@ export function ProjectForm({ categories, project }: { categories: Category[]; p
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-2">
             <Label htmlFor="category">Category</Label>
-            <Select value={categoryId} onValueChange={setCategoryId}>
+            <Select value={categoryId} onValueChange={(val) => setCategoryId(val ?? "")}>
               <SelectTrigger id="category">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>

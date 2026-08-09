@@ -89,7 +89,7 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="contribution-project">Project</Label>
-            <Select value={projectId} onValueChange={setProjectId}>
+            <Select value={projectId} onValueChange={(val) => setProjectId(val ?? "")}>
               <SelectTrigger id="contribution-project">
                 <SelectValue placeholder="Select project" />
               </SelectTrigger>

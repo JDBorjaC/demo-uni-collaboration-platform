@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db"
 import { auditLogs, profiles, universityAffiliations, user } from "@/lib/db/schema"
-import { requireAdmin } from "@/lib/permissions"
+import { requireAdmin, type Role } from "@/lib/permissions"
 import { logAudit } from "@/lib/audit"
 import { desc, eq } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
@@ -43,7 +43,7 @@ export async function setUserVerification(
   return { success: true }
 }
 
-export async function setUserRole(profileId: string, role: "student" | "faculty" | "admin"): Promise<ActionResult> {
+export async function setUserRole(profileId: string, role: Role): Promise<ActionResult> {
   const adminId = await requireAdmin()
 
   await db.update(profiles).set({ role, updatedAt: new Date() }).where(eq(profiles.id, profileId))
