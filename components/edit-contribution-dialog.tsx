@@ -23,11 +23,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { submitContribution } from "@/app/actions/contributions"
-import { Plus } from "lucide-react"
+import { updateContribution } from "@/app/actions/contributions"
+import { Pencil } from "lucide-react"
 import { contributionTypeValues } from "@/lib/validations"
 
-type Project = { id: string; title: string }
+type Contribution = {
+  id: string
+  title: string
+  description: string
+  type: string
+  contentUrl: string | null
+  status: string
+}
 
 const CONTRIBUTION_TYPE_LABELS: Record<string, string> = {
   update: "Update — general progress report",
@@ -36,23 +43,29 @@ const CONTRIBUTION_TYPE_LABELS: Record<string, string> = {
   report: "Report — formal written report",
 }
 
-export function NewContributionDialog({ projects }: { projects: Project[] }) {
+export function EditContributionDialog({ contribution }: { contribution: Contribution }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const [projectId, setProjectId] = useState(projects[0]?.id ?? "")
-  const [type, setType] = useState<(typeof contributionTypeValues)[number]>("update")
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [contentUrl, setContentUrl] = useState("")
+  const [type, setType] = useState<(typeof contributionTypeValues)[number]>(
+    (contributionTypeValues as readonly string[]).includes(contribution.type)
+      ? (contribution.type as (typeof contributionTypeValues)[number])
+      : "update",
+  )
+  const [title, setTitle] = useState(contribution.title)
+  const [description, setDescription] = useState(contribution.description)
+  const [contentUrl, setContentUrl] = useState(contribution.contentUrl ?? "")
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   function resetForm() {
-    setProjectId(projects[0]?.id ?? "")
-    setType("update")
-    setTitle("")
-    setDescription("")
-    setContentUrl("")
+    setType(
+      (contributionTypeValues as readonly string[]).includes(contribution.type)
+        ? (contribution.type as (typeof contributionTypeValues)[number])
+        : "update",
+    )
+    setTitle(contribution.title)
+    setDescription(contribution.description)
+    setContentUrl(contribution.contentUrl ?? "")
     setError(null)
   }
 
@@ -61,7 +74,13 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
     setError(null)
     setLoading(true)
 
-    const result = await submitContribution({ projectId, type, title, description, contentUrl })
+    const result = await updateContribution({
+      id: contribution.id,
+      type,
+      title,
+      description,
+      contentUrl,
+    })
 
     setLoading(false)
 
@@ -70,11 +89,13 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
       return
     }
 
-    toast.success("Contribution submitted for review")
+    toast.success("Contribution updated")
     setOpen(false)
-    resetForm()
     router.refresh()
   }
+
+  // Only submitted contributions can be edited
+  if (contribution.status !== "submitted") return null
 
   return (
     <Dialog
@@ -84,42 +105,29 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
         if (!next) resetForm()
       }}
     >
-      <DialogTrigger render={<Button size="sm" />}>
-        <Plus className="size-4" data-icon="inline-start" />
-        New contribution
+      <DialogTrigger render={<Button variant="outline" size="sm" />}>
+        <Pencil className="size-3.5" data-icon="inline-start" />
+        Edit
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Submit a contribution</DialogTitle>
-          <DialogDescription>Share your work with the project leader for review.</DialogDescription>
+          <DialogTitle>Edit contribution</DialogTitle>
+          <DialogDescription>
+            You can edit this contribution while it is still pending review.
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          {/* Project selector */}
+          {/* Type */}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="contribution-project">Project</Label>
-            <Select value={projectId} onValueChange={(val) => setProjectId(val ?? "")}>
-              <SelectTrigger id="contribution-project">
-                <SelectValue placeholder="Select project" />
-              </SelectTrigger>
-              <SelectContent>
-                {projects.map((p) => (
-                  <SelectItem key={p.id} value={p.id}>
-                    {p.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Contribution type */}
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="contribution-type">Type</Label>
+            <Label htmlFor="edit-contribution-type">Type</Label>
             <Select
               value={type}
-              onValueChange={(val) => setType((val as (typeof contributionTypeValues)[number]) ?? "update")}
+              onValueChange={(val) =>
+                setType((val as (typeof contributionTypeValues)[number]) ?? "update")
+              }
             >
-              <SelectTrigger id="contribution-type">
+              <SelectTrigger id="edit-contribution-type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -134,39 +142,37 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
 
           {/* Title */}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="contribution-title">Title</Label>
+            <Label htmlFor="edit-contribution-title">Title</Label>
             <Input
-              id="contribution-title"
+              id="edit-contribution-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
               maxLength={160}
-              placeholder="e.g. Literature review draft"
             />
           </div>
 
           {/* Description */}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="contribution-description">Description</Label>
+            <Label htmlFor="edit-contribution-description">Description</Label>
             <Textarea
-              id="contribution-description"
+              id="edit-contribution-description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
               rows={4}
               maxLength={4000}
-              placeholder="Describe the work you're submitting"
             />
           </div>
 
           {/* Link */}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="contribution-url">
+            <Label htmlFor="edit-contribution-url">
               Link{" "}
               <span className="text-xs text-muted-foreground font-normal">(optional)</span>
             </Label>
             <Input
-              id="contribution-url"
+              id="edit-contribution-url"
               value={contentUrl}
               onChange={(e) => setContentUrl(e.target.value)}
               placeholder="https://..."
@@ -180,8 +186,11 @@ export function NewContributionDialog({ projects }: { projects: Project[] }) {
           )}
 
           <DialogFooter>
-            <Button type="submit" disabled={loading || !projectId}>
-              {loading ? "Submitting..." : "Submit for review"}
+            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Saving..." : "Save changes"}
             </Button>
           </DialogFooter>
         </form>

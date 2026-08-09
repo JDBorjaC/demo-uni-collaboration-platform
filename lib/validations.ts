@@ -65,3 +65,11 @@ export const revertAuditSchema = z.object({
   auditLogId: z.string().min(1, "Audit log ID is required"),
   reason: z.string().min(5, "Please provide a reason for reverting this record").max(500),
 })
+
+export const updateContributionSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(3).max(160).optional(),
+  description: z.string().min(10).max(4000).optional(),
+  type: z.enum(contributionTypeValues).optional(),
+  contentUrl: z.string().url().optional().or(z.literal("")),
+})

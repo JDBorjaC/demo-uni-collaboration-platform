@@ -6,9 +6,9 @@
 
 - **Fase Actual**: Fase 5 – Gestión de Proyectos, Colaboradores y Contribuciones
 - **Estado**: 🟡 En progreso
-- **Subtarea en Curso**: Tarea 5.2
-- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1
-- **Último Commit de Subtarea**: `feat(projects): add objectives, collaborationNeeds and affiliation to form and persist in DB (Tarea 5.1)`
+- **Subtarea en Curso**: Tarea 5.3
+- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.2
+- **Último Commit de Subtarea**: `feat(dashboard): enhance project manage tabs with contribution types, reject comment flow, member avatars and formatted dates (Tarea 5.2)`
 
 ---
 
@@ -34,7 +34,7 @@
 
 ### Fase 5: Gestión de Proyectos, Colaboradores y Contribuciones
 - [x] **Tarea 5.1**: Formulario de Creación/Edición de Proyecto (`components/project-form.tsx`) — campos objectives, collaborationNeeds (chips) y universityAffiliationId; persistencia en DB.
-- [ ] **Tarea 5.2**: Panel de Control del Líder y Gestión de Miembros (`app/dashboard/projects/[id]/page.tsx`).
+- [x] **Tarea 5.2**: Panel de Control del Líder — badge de tipo de contribución, enlace a contentUrl, flujo de rechazo con comentario, avatar y joinedAt en miembros, fechas en aplicaciones.
 - [ ] **Tarea 5.3**: Formulario de Contribuciones con Edición y Retiro (`components/new-contribution-dialog.tsx`).
 
 ### Fase 6: Módulo de Administración, Moderación y Auditoría
@@ -65,4 +65,5 @@
 | **Tarea 4.2** | Dashboard expandido: sección Proyectos Seguidos, feed de actividad reciente (notificaciones reales), estado de postulaciones en curso, quick-actions, diseño premium 3 columnas | ✅ Completado | `feat(dashboard): expand with followed projects, application status, activity feed and quick actions (Tarea 4.2)` | 2026-08-09 |
 | **Tarea 4.3** | Notificaciones dinámicas: `notifications-menu.tsx` ya conectado a `getMyNotifications()` con polling 15s y mark-as-read real desde la tabla `notifications` | ✅ Completado | (ya implementado — sin commit adicional) | 2026-08-09 |
 | **Tarea 5.1** | Formulario de proyecto extendido: campos `objectives` (textarea), `collaborationNeeds` (chip input dinámico), `universityAffiliationId` (selector); persistencia en `createProject` y `updateProject`; `new/page.tsx` y `[id]/page.tsx` cargan `affiliations` | ✅ Completado | `feat(projects): add objectives, collaborationNeeds and affiliation to form and persist in DB (Tarea 5.1)` | 2026-08-09 |
+| **Tarea 5.2** | Panel del líder mejorado: badge de tipo por contribución (color-coded), enlace `contentUrl`, flujo de rechazo con textarea de comentario confirmable, avatar + `joinedAt` en miembros, fecha de aplicación formateada | ✅ Completado | `feat(dashboard): enhance project manage tabs with contribution types, reject comment flow, member avatars and formatted dates (Tarea 5.2)` | 2026-08-09 |
 

@@ -10,7 +10,7 @@ import {
 } from "@/lib/db/schema"
 import { getUserId, isProjectLeaderOrManager } from "@/lib/permissions"
 import { logAudit } from "@/lib/audit"
-import { contributionSchema, reviewDecisionSchema } from "@/lib/validations"
+import { contributionSchema, reviewDecisionSchema, updateContributionSchema } from "@/lib/validations"
 import { and, desc, eq } from "drizzle-orm"
 import { nanoid } from "nanoid"
 import { revalidatePath } from "next/cache"
@@ -56,6 +56,7 @@ export async function submitContribution(input: unknown): Promise<ActionResult> 
     memberId: membership.id,
     title: parsed.data.title,
     description: parsed.data.description,
+    type: parsed.data.type,
     contentUrl: parsed.data.contentUrl || null,
   })
 
@@ -148,5 +149,46 @@ export async function reviewContribution(input: unknown): Promise<ActionResult> 
   })
 
   revalidatePath(`/dashboard/projects/${project.id}/contributions`)
+  return { success: true }
+}
+
+export async function updateContribution(input: unknown): Promise<ActionResult> {
+  const userId = await getUserId()
+  const parsed = updateContributionSchema.safeParse(input)
+  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Invalid input" }
+
+  const [contribution] = await db.select().from(contributions).where(eq(contributions.id, parsed.data.id)).limit(1)
+  if (!contribution) return { success: false, error: "Contribution not found" }
+  if (contribution.status !== "submitted") {
+    return { success: false, error: "Only submitted contributions can be edited" }
+  }
+
+  const [membership] = await db
+    .select()
+    .from(projectMembers)
+    .where(eq(projectMembers.id, contribution.memberId))
+    .limit(1)
+  if (!membership || membership.userId !== userId) {
+    return { success: false, error: "You can only edit your own contributions" }
+  }
+
+  await db
+    .update(contributions)
+    .set({
+      ...(parsed.data.title ? { title: parsed.data.title } : {}),
+      ...(parsed.data.description ? { description: parsed.data.description } : {}),
+      ...(parsed.data.type ? { type: parsed.data.type } : {}),
+      ...(parsed.data.contentUrl !== undefined ? { contentUrl: parsed.data.contentUrl || null } : {}),
+      updatedAt: new Date(),
+    })
+    .where(eq(contributions.id, contribution.id))
+
+  await logAudit({
+    actorId: userId,
+    action: "contribution.updated",
+    entityType: "contribution",
+    entityId: contribution.id,
+  })
+  revalidatePath("/dashboard/contributions")
   return { success: true }
 }
