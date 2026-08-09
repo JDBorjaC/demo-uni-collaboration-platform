@@ -5,9 +5,9 @@
 ## 📌 Estado Actual
 
 - **Fase Activa**: Fase 1 — Actualización del Modelo de Datos y Permisos
-- **Siguiente Subtarea Pendiente**: `Tarea 1.2: Actualización de Schemas Zod (lib/validations.ts) y Helper de Permisos (lib/permissions.ts)`
-- **Progreso General**: 1 / 19 Subtareas Completadas (5%)
-- **Último Commit de Subtarea**: `feat(db): update schema with extended roles, skills, objectives, contribution types, and audit fields (Tarea 1.1)`
+- **Siguiente Subtarea Pendiente**: `Tarea 1.3: Sincronización de Base de Datos con Drizzle (npx drizzle-kit push)`
+- **Progreso General**: 2 / 19 Subtareas Completadas (10%)
+- **Último Commit de Subtarea**: `feat(validations): update Zod schemas and permission helpers for extended roles and revert actions (Tarea 1.2)`
 
 ---
 
@@ -15,7 +15,7 @@
 
 ### Fase 1: Actualización del Modelo de Datos y Permisos
 - [x] **Tarea 1.1**: Refactorización de `lib/db/schema.ts` (Roles extendidos, skills, objetivos, tipo contribución, audit fields).
-- [ ] **Tarea 1.2**: Actualización de Schemas Zod (`lib/validations.ts`) y Helper de Permisos (`lib/permissions.ts`).
+- [x] **Tarea 1.2**: Actualización de Schemas Zod (`lib/validations.ts`) y Helper de Permisos (`lib/permissions.ts`).
 - [ ] **Tarea 1.3**: Sincronización de Base de Datos con Drizzle (`npx drizzle-kit push`).
 
 ### Fase 2: Script de Poblamiento de Datos (Seed Script)
@@ -54,4 +54,6 @@
 | Tarea | Descripción | Estado | Commit Hash / Mensaje | Fecha |
 | :--- | :--- | :---: | :--- | :---: |
 | **Tarea 1.1** | Refactorización de `lib/db/schema.ts` (Roles extendidos, skills, objetivos, tipo contribución, audit fields) | ✅ Completado | `feat(db): update schema with extended roles, skills, objectives, contribution types, and audit fields (Tarea 1.1)` | 2026-08-09 |
+| **Tarea 1.2** | Actualización de Schemas Zod (`lib/validations.ts`) y Helper de Permisos (`lib/permissions.ts`) | ✅ Completado | `feat(validations): update Zod schemas and permission helpers for extended roles and revert actions (Tarea 1.2)` | 2026-08-09 |
+
 
