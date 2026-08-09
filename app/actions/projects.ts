@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db"
 import { moderationReviews, projectMembers, projects, projectStatusHistory, projectSubscriptions } from "@/lib/db/schema"
-import { getCurrentUserWithProfile, getUserId, requireAdmin } from "@/lib/permissions"
+import { getCurrentUserWithProfile, getUserId, requireAdmin, requireModeratorOrAdmin } from "@/lib/permissions"
 import { logAudit } from "@/lib/audit"
 import { createProjectSchema, updateProjectSchema, reviewDecisionSchema } from "@/lib/validations"
 import { and, desc, eq } from "drizzle-orm"
@@ -175,16 +175,26 @@ export async function archiveProject(projectId: string): Promise<ActionResult> {
 }
 
 export async function getPendingModerationProjects() {
-  await requireAdmin()
+  await requireModeratorOrAdmin()
+  const { categories, user, universityAffiliations } = await import("@/lib/db/schema")
   return db
-    .select()
+    .select({
+      project: projects,
+      leaderName: user.name,
+      leaderEmail: user.email,
+      categoryName: categories.name,
+      affiliationName: universityAffiliations.name,
+    })
     .from(projects)
+    .innerJoin(user, eq(projects.leaderId, user.id))
+    .leftJoin(categories, eq(projects.categoryId, categories.id))
+    .leftJoin(universityAffiliations, eq(projects.universityAffiliationId, universityAffiliations.id))
     .where(eq(projects.status, "pending_review"))
     .orderBy(desc(projects.updatedAt))
 }
 
 export async function reviewProject(input: unknown): Promise<ActionResult> {
-  const adminId = await requireAdmin()
+  const moderatorId = await requireModeratorOrAdmin()
   const parsed = reviewDecisionSchema.safeParse(input)
   if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Invalid input" }
 
@@ -201,20 +211,20 @@ export async function reviewProject(input: unknown): Promise<ActionResult> {
     projectId: existing.id,
     fromStatus: existing.status,
     toStatus: newStatus,
-    changedBy: adminId,
+    changedBy: moderatorId,
     reason: parsed.data.comment,
   })
 
   await db.insert(moderationReviews).values({
     id: nanoid(),
     projectId: existing.id,
-    reviewerId: adminId,
+    reviewerId: moderatorId,
     decision: parsed.data.decision,
     comment: parsed.data.comment,
   })
 
   await logAudit({
-    actorId: adminId,
+    actorId: moderatorId,
     action: `project.${parsed.data.decision}`,
     entityType: "project",
     entityId: existing.id,
