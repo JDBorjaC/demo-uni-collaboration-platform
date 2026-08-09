@@ -5,10 +5,10 @@
 ## 📌 Estado Actual
 
 - **Fase Actual**: Fase 4 – Onboarding y Panel de Usuario
-- **Estado**: 🟡 Tarea 4.1 completada
+- **Estado**: 🟢 Fase 4 completada
 - **Subtarea en Curso**: —
-- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, **4.1**
-- **Último Commit de Subtarea**: `feat(onboarding): rewrite form with extended roles, skills chip input, live domain validation and premium UI (Tarea 4.1)`
+- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3
+- **Último Commit de Subtarea**: `feat(dashboard): expand with followed projects, application status, activity feed and quick actions (Tarea 4.2)`
 
 ---
 
@@ -29,8 +29,8 @@
 
 ### Fase 4: Onboarding y Panel de Usuario (Dashboard)
 - [x] **Tarea 4.1**: Mejora de Onboarding (`app/onboarding/page.tsx` & `components/onboarding-form.tsx`).
-- [ ] **Tarea 4.2**: Expansión del Dashboard de Usuario (`app/dashboard/page.tsx`).
-- [ ] **Tarea 4.3**: Conexión de Notificaciones en tiempo real (`components/notifications-menu.tsx`).
+- [x] **Tarea 4.2**: Expansión del Dashboard de Usuario (`app/dashboard/page.tsx`).
+- [x] **Tarea 4.3**: Conexión de Notificaciones en tiempo real (`components/notifications-menu.tsx`).
 
 ### Fase 5: Gestión de Proyectos, Colaboradores y Contribuciones
 - [ ] **Tarea 5.1**: Formulario de Creación/Edición de Proyecto (`components/project-form.tsx`).
@@ -62,4 +62,6 @@
 | **Tarea 3.2** | Catálogo público de proyectos (`app/projects/page.tsx`): buscador debounced, filtros de categoría y universidad, paginación por URL, skeleton loading, estado vacío | ✅ Completado | `feat(projects): add public projects catalog with search, filters and pagination (Tarea 3.2)` | 2026-08-09 |
 | **Tarea 3.3** | Vista detallada de proyecto (`app/projects/[slug]/page.tsx`): hero con cover, objetivos, necesidades, equipo, muro de contribuciones aprobadas, modal de solicitud y botón seguir/dejar de seguir | ✅ Completado | `feat(project-detail): add public project detail page with apply modal, follow button and contributions wall (Tarea 3.3)` | 2026-08-09 |
 | **Tarea 4.1** | Mejora de Onboarding: selector de rol visual con 5 opciones, chips de habilidades con sugerencias, validación de dominio institucional en vivo (verde/ámbar), counter bio, UI premium | ✅ Completado | `feat(onboarding): rewrite form with extended roles, skills chip input, live domain validation and premium UI (Tarea 4.1)` | 2026-08-09 |
+| **Tarea 4.2** | Dashboard expandido: sección Proyectos Seguidos, feed de actividad reciente (notificaciones reales), estado de postulaciones en curso, quick-actions, diseño premium 3 columnas | ✅ Completado | `feat(dashboard): expand with followed projects, application status, activity feed and quick actions (Tarea 4.2)` | 2026-08-09 |
+| **Tarea 4.3** | Notificaciones dinámicas: `notifications-menu.tsx` ya conectado a `getMyNotifications()` con polling 15s y mark-as-read real desde la tabla `notifications` | ✅ Completado | (ya implementado — sin commit adicional) | 2026-08-09 |
 
