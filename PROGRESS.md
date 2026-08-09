@@ -4,10 +4,11 @@
 
 ## 📌 Estado Actual
 
-- **Fase Activa**: Fase 2 — Script de Poblamiento de Datos (Seed Script)
-- **Siguiente Subtarea Pendiente**: `Tarea 2.1: Creación de scripts/seed.ts con datos demo realistas`
-- **Progreso General**: 3 / 19 Subtareas Completadas (15%)
-- **Último Commit de Subtarea**: `feat(db): configure drizzle-kit, generate migration SQL files, and add db:push script (Tarea 1.3)`
+- **Fase Actual**: Fase 3 – Experiencia Pública y Descubrimiento
+- **Estado**: 🟢 Fase 2 completada
+- **Subtarea en Curso**: —
+- **Completadas**: Fases 1.1, 1.2, 1.3, 2.1
+- **Último Commit de Subtarea**: `feat(seed): create scripts/seed.ts with realistic demo data and add db:seed script (Tarea 2.1)`
 
 ---
 
@@ -19,7 +20,7 @@
 - [x] **Tarea 1.3**: Sincronización de Base de Datos con Drizzle (`npx drizzle-kit push`).
 
 ### Fase 2: Script de Poblamiento de Datos (Seed Script)
-- [ ] **Tarea 2.1**: Creación de `scripts/seed.ts` con datos demo realistas (usuarios, categorías, instituciones, proyectos, postulaciones, contribuciones).
+- [x] **Tarea 2.1**: Creación de `scripts/seed.ts` con datos demo realistas (usuarios, categorías, instituciones, proyectos, postulaciones, contribuciones).
 
 ### Fase 3: Experiencia Pública y Descubrimiento (Landing & Catálogo)
 - [ ] **Tarea 3.1**: Rediseño e implementación de Landing Page pública (`app/page.tsx`).

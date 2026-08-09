@@ -262,6 +262,6 @@ Para mantener la estabilidad de los deploys automáticos y evitar desbordamiento
    * Una vez completada la subtarea, verificados los tipos y actualizado `PROGRESS.md`, el agente debe realizar el commit correspondiente en Git.
    * El mensaje de commit debe seguir el formato Conventional Commits e incluir la referencia a la tarea del `PLAN.md`:
      * Ejemplo: `feat(db): update schema with extended roles and audit fields (Tarea 1.1)`
-   * Para aspectos relativos al despliegue en Vercel/v0 y sincronización de base de datos Neon, consultar [DEPLOYMENT.md](file:///home/wizuz/Downloads/university-collaboration-platform/DEPLOYMENT.md).
+   * Para aspectos relativos al despliegue en Vercel/v0 y sincronización de base de datos Neon, consultar [DEPLOYMENT.md].
    * Tras hacer el commit (y el push si tiene permisos), **el agente DEBE FRENAR SU EJECUCIÓN** y entregar el control al usuario indicando el comando o prompt recomendado para la siguiente subtarea.
 
