@@ -4,7 +4,13 @@ import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { projects } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
-import { getProjectMembers, getProjectApplications, getProjectContributions, getCategories } from "@/lib/queries"
+import {
+  getProjectMembers,
+  getProjectApplications,
+  getProjectContributions,
+  getCategories,
+  getUniversityAffiliations,
+} from "@/lib/queries"
 import { ProjectManageTabs } from "@/components/project-manage-tabs"
 
 export default async function ManageProjectPage({ params }: { params: Promise<{ id: string }> }) {
@@ -16,11 +22,12 @@ export default async function ManageProjectPage({ params }: { params: Promise<{ 
   if (!project) notFound()
   if (project.leaderId !== session.user.id) notFound()
 
-  const [members, applications, contributions, categories] = await Promise.all([
+  const [members, applications, contributions, categories, affiliations] = await Promise.all([
     getProjectMembers(project.id),
     getProjectApplications(project.id),
     getProjectContributions(project.id),
     getCategories(),
+    getUniversityAffiliations(),
   ])
 
   return (
@@ -31,6 +38,7 @@ export default async function ManageProjectPage({ params }: { params: Promise<{ 
         applications={applications}
         contributions={contributions}
         categories={categories}
+        affiliations={affiliations}
       />
     </div>
   )

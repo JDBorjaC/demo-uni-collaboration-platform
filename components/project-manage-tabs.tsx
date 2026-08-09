@@ -28,7 +28,10 @@ type Project = {
   title: string
   summary: string
   description: string
+  objectives: string | null
+  collaborationNeeds: string[] | null
   categoryId: string | null
+  universityAffiliationId: string | null
   visibility: "public" | "university_only"
   maxMembers: number
   coverImageUrl: string | null
@@ -42,20 +45,22 @@ export function ProjectManageTabs({
   applications,
   contributions,
   categories,
+  affiliations,
 }: {
   project: Project
-  members: { member: { id: string; roleInProject: string; userId: string }; name: string; email: string }[]
+  members: { member: { id: string; roleInProject: string; userId: string; joinedAt: Date }; name: string; email: string; image: string | null }[]
   applications: {
     application: { id: string; status: string; message: string; createdAt: Date }
     name: string
     email: string
   }[]
   contributions: {
-    contribution: { id: string; title: string; description: string; status: string; createdAt: Date }
+    contribution: { id: string; title: string; description: string; status: string; createdAt: Date; type: string; contentUrl: string | null }
     memberName: string
     roleInProject: string
   }[]
   categories: { id: string; name: string }[]
+  affiliations: { id: string; name: string; type: string }[]
 }) {
   const router = useRouter()
   const [loading, setLoading] = useState<string | null>(null)
@@ -162,7 +167,7 @@ export function ProjectManageTabs({
         </TabsList>
 
         <TabsContent value="details" className="mt-4">
-          <ProjectForm categories={categories} project={project} />
+          <ProjectForm categories={categories} affiliations={affiliations} project={project} />
         </TabsContent>
 
         <TabsContent value="applications" className="mt-4 flex flex-col gap-3">
