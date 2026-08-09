@@ -5,11 +5,11 @@
 ## 📌 Estado Actual
 
 - **Fase Actual**: Fase 6 – Módulo de Administración, Moderación y Auditoría
-- **Estado**: 🟢 Fase 5 completada
+- **Estado**: 🟡 Fase 6 en progreso
 - **Subtarea en Curso**: —
-- **Siguiente Subtarea Pendiente**: Tarea 6.1 (Layout y Protección del Panel Admin)
-- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.3
-- **Último Commit de Subtarea**: `feat(contributions): add type selector to new dialog, updateContribution action, edit dialog and enhanced contributions page (Tarea 5.3)`
+- **Siguiente Subtarea Pendiente**: Tarea 6.2 (Cola de Moderación de Proyectos)
+- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.3, 6.1
+- **Último Commit de Subtarea**: `feat(admin): add admin layout with role guard, premium dark sidebar and overview dashboard with metrics (Tarea 6.1)`
 
 ---
 
@@ -39,7 +39,7 @@
 - [x] **Tarea 5.3**: Formulario de Contribuciones con Edición y Retiro (`components/new-contribution-dialog.tsx` y `edit-contribution-dialog.tsx`).
 
 ### Fase 6: Módulo de Administración, Moderación y Auditoría
-- [ ] **Tarea 6.1**: Layout y Protección del Panel Admin (`app/admin/layout.tsx`).
+- [x] **Tarea 6.1**: Layout y Protección del Panel Admin (`app/admin/layout.tsx`).
 - [ ] **Tarea 6.2**: Cola de Moderación de Proyectos (`app/admin/moderation/page.tsx`).
 - [ ] **Tarea 6.3**: Gestión de Usuarios e Instituciones (`app/admin/users/page.tsx`).
 - [ ] **Tarea 6.4**: Log de Auditoría y Reversión con Motivo (`app/admin/audit-logs/page.tsx`).
@@ -68,4 +68,5 @@
 | **Tarea 5.1** | Formulario de proyecto extendido: campos `objectives` (textarea), `collaborationNeeds` (chip input dinámico), `universityAffiliationId` (selector); persistencia en `createProject` y `updateProject`; `new/page.tsx` y `[id]/page.tsx` cargan `affiliations` | ✅ Completado | `feat(projects): add objectives, collaborationNeeds and affiliation to form and persist in DB (Tarea 5.1)` | 2026-08-09 |
 | **Tarea 5.2** | Panel del líder mejorado: badge de tipo por contribución (color-coded), enlace `contentUrl`, flujo de rechazo con textarea de comentario confirmable, avatar + `joinedAt` en miembros, fecha de aplicación formateada | ✅ Completado | `feat(dashboard): enhance project manage tabs with contribution types, reject comment flow, member avatars and formatted dates (Tarea 5.2)` | 2026-08-09 |
 | **Tarea 5.3** | Módulo de Contribuciones extendido: selector de `type` en modal de creación, Server Action `updateContribution`, nuevo modal `edit-contribution-dialog.tsx` para contribuciones `submitted`, integración de badges y botón editar en `/dashboard/contributions` | ✅ Completado | `feat(contributions): add type selector to new dialog, updateContribution action, edit dialog and enhanced contributions page (Tarea 5.3)` | 2026-08-09 |
+| **Tarea 6.1** | Layout del Panel Admin con guard de roles (`admin`/`moderator`), sidebar premium oscuro con navegación activa y badge de rol, página de overview con métricas de usuarios/proyectos/auditoría en tiempo real | ✅ Completado | `feat(admin): add admin layout with role guard, premium dark sidebar and overview dashboard with metrics (Tarea 6.1)` | 2026-08-09 |
 
