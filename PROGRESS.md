@@ -7,9 +7,9 @@
 - **Fase Actual**: Fase 6 – Módulo de Administración, Moderación y Auditoría
 - **Estado**: 🟡 Fase 6 en progreso
 - **Subtarea en Curso**: —
-- **Siguiente Subtarea Pendiente**: Tarea 6.3 (Gestión de Usuarios e Instituciones)
-- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.3, 6.1–6.2
-- **Último Commit de Subtarea**: `feat(admin): add moderation queue page with approve/reject flows and comment feedback (Tarea 6.2)`
+- **Siguiente Subtarea Pendiente**: Tarea 6.4 (Log de Auditoría y Reversión con Motivo)
+- **Completadas**: Fases 1.1–3, 2.1, 3.1–3.3, 4.1–4.3, 5.1–5.3, 6.1–6.3
+- **Último Commit de Subtarea**: `feat(admin): add users management page with search, role selector and verification controls (Tarea 6.3)`
 
 ---
 
@@ -41,7 +41,7 @@
 ### Fase 6: Módulo de Administración, Moderación y Auditoría
 - [x] **Tarea 6.1**: Layout y Protección del Panel Admin (`app/admin/layout.tsx`).
 - [x] **Tarea 6.2**: Cola de Moderación de Proyectos (`app/admin/moderation/page.tsx`).
-- [ ] **Tarea 6.3**: Gestión de Usuarios e Instituciones (`app/admin/users/page.tsx`).
+- [x] **Tarea 6.3**: Gestión de Usuarios e Instituciones (`app/admin/users/page.tsx`).
 - [ ] **Tarea 6.4**: Log de Auditoría y Reversión con Motivo (`app/admin/audit-logs/page.tsx`).
 
 ### Fase 7: Componentes Reutilizables, Polish UX y Verificación
@@ -70,4 +70,5 @@
 | **Tarea 5.3** | Módulo de Contribuciones extendido: selector de `type` en modal de creación, Server Action `updateContribution`, nuevo modal `edit-contribution-dialog.tsx` para contribuciones `submitted`, integración de badges y botón editar en `/dashboard/contributions` | ✅ Completado | `feat(contributions): add type selector to new dialog, updateContribution action, edit dialog and enhanced contributions page (Tarea 5.3)` | 2026-08-09 |
 | **Tarea 6.1** | Layout del Panel Admin con guard de roles (`admin`/`moderator`), sidebar premium oscuro con navegación activa y badge de rol, página de overview con métricas de usuarios/proyectos/auditoría en tiempo real | ✅ Completado | `feat(admin): add admin layout with role guard, premium dark sidebar and overview dashboard with metrics (Tarea 6.1)` | 2026-08-09 |
 | **Tarea 6.2** | Cola de Moderación: página `app/admin/moderation/page.tsx`, componente `admin-moderation-queue.tsx` con tarjetas expandibles, flujo de aprobación/rechazo con comentario, remoción optimista. Guard extendido a `requireModeratorOrAdmin` en `reviewProject` y `getPendingModerationProjects`. | ✅ Completado | `feat(admin): add moderation queue page with approve/reject flows and comment feedback (Tarea 6.2)` | 2026-08-09 |
+| **Tarea 6.3** | Página `app/admin/users/page.tsx` y componente `admin-users-table.tsx`: búsqueda por nombre/email/institución, filtros de rol y verificación, selector inline de rol con dropdown, acciones de verificar/rechazar/restablecer por usuario con estado local optimista y toast feedback. | ✅ Completado | `feat(admin): add users management page with search, role selector and verification controls (Tarea 6.3)` | 2026-08-09 |
 
