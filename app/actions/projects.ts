@@ -1,8 +1,8 @@
 "use server"
 
 import { db } from "@/lib/db"
-import { moderationReviews, projectMembers, projects, projectStatusHistory } from "@/lib/db/schema"
-import { getCurrentUserWithProfile, getUserId, requireAdmin } from "@/lib/permissions"
+import { moderationReviews, projectMembers, projects, projectStatusHistory, projectSubscriptions } from "@/lib/db/schema"
+import { getCurrentUserWithProfile, getUserId, requireAdmin, requireModeratorOrAdmin } from "@/lib/permissions"
 import { logAudit } from "@/lib/audit"
 import { createProjectSchema, updateProjectSchema, reviewDecisionSchema } from "@/lib/validations"
 import { and, desc, eq } from "drizzle-orm"
@@ -39,6 +39,16 @@ export async function getMyMemberships() {
     .orderBy(desc(projectMembers.joinedAt))
 }
 
+export async function getMySubscriptions() {
+  const userId = await getUserId()
+  return db
+    .select({ subscription: projectSubscriptions, project: projects })
+    .from(projectSubscriptions)
+    .innerJoin(projects, eq(projectSubscriptions.projectId, projects.id))
+    .where(eq(projectSubscriptions.userId, userId))
+    .orderBy(desc(projectSubscriptions.createdAt))
+}
+
 export async function createProject(input: unknown): Promise<ActionResult<{ slug: string }>> {
   const { user, profile } = await getCurrentUserWithProfile()
   if (!profile) return { success: false, error: "Complete onboarding before creating a project" }
@@ -58,7 +68,10 @@ export async function createProject(input: unknown): Promise<ActionResult<{ slug
     slug,
     summary: parsed.data.summary,
     description: parsed.data.description,
+    objectives: parsed.data.objectives || null,
+    collaborationNeeds: parsed.data.collaborationNeeds.length > 0 ? parsed.data.collaborationNeeds : null,
     categoryId: parsed.data.categoryId,
+    universityAffiliationId: parsed.data.universityAffiliationId || null,
     leaderId: user.id,
     visibility: parsed.data.visibility,
     maxMembers: parsed.data.maxMembers,
@@ -98,7 +111,10 @@ export async function updateProject(input: unknown): Promise<ActionResult> {
       ...(fields.title ? { title: fields.title } : {}),
       ...(fields.summary ? { summary: fields.summary } : {}),
       ...(fields.description ? { description: fields.description } : {}),
+      ...(fields.objectives !== undefined ? { objectives: fields.objectives || null } : {}),
+      ...(fields.collaborationNeeds !== undefined ? { collaborationNeeds: fields.collaborationNeeds.length > 0 ? fields.collaborationNeeds : null } : {}),
       ...(fields.categoryId ? { categoryId: fields.categoryId } : {}),
+      ...(fields.universityAffiliationId !== undefined ? { universityAffiliationId: fields.universityAffiliationId || null } : {}),
       ...(fields.visibility ? { visibility: fields.visibility } : {}),
       ...(fields.maxMembers ? { maxMembers: fields.maxMembers } : {}),
       ...(fields.coverImageUrl !== undefined ? { coverImageUrl: fields.coverImageUrl || null } : {}),
@@ -159,16 +175,26 @@ export async function archiveProject(projectId: string): Promise<ActionResult> {
 }
 
 export async function getPendingModerationProjects() {
-  await requireAdmin()
+  await requireModeratorOrAdmin()
+  const { categories, user, universityAffiliations } = await import("@/lib/db/schema")
   return db
-    .select()
+    .select({
+      project: projects,
+      leaderName: user.name,
+      leaderEmail: user.email,
+      categoryName: categories.name,
+      affiliationName: universityAffiliations.name,
+    })
     .from(projects)
+    .innerJoin(user, eq(projects.leaderId, user.id))
+    .leftJoin(categories, eq(projects.categoryId, categories.id))
+    .leftJoin(universityAffiliations, eq(projects.universityAffiliationId, universityAffiliations.id))
     .where(eq(projects.status, "pending_review"))
     .orderBy(desc(projects.updatedAt))
 }
 
 export async function reviewProject(input: unknown): Promise<ActionResult> {
-  const adminId = await requireAdmin()
+  const moderatorId = await requireModeratorOrAdmin()
   const parsed = reviewDecisionSchema.safeParse(input)
   if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Invalid input" }
 
@@ -185,20 +211,20 @@ export async function reviewProject(input: unknown): Promise<ActionResult> {
     projectId: existing.id,
     fromStatus: existing.status,
     toStatus: newStatus,
-    changedBy: adminId,
+    changedBy: moderatorId,
     reason: parsed.data.comment,
   })
 
   await db.insert(moderationReviews).values({
     id: nanoid(),
     projectId: existing.id,
-    reviewerId: adminId,
+    reviewerId: moderatorId,
     decision: parsed.data.decision,
     comment: parsed.data.comment,
   })
 
   await logAudit({
-    actorId: adminId,
+    actorId: moderatorId,
     action: `project.${parsed.data.decision}`,
     entityType: "project",
     entityId: existing.id,
@@ -210,3 +236,35 @@ export async function reviewProject(input: unknown): Promise<ActionResult> {
   revalidatePath("/projects")
   return { success: true }
 }
+
+export async function subscribeToProject(projectId: string): Promise<ActionResult> {
+  const userId = await getUserId()
+
+  const { projectSubscriptions } = await import("@/lib/db/schema")
+
+  const [existing] = await db
+    .select()
+    .from(projectSubscriptions)
+    .where(and(eq(projectSubscriptions.projectId, projectId), eq(projectSubscriptions.userId, userId)))
+    .limit(1)
+
+  if (existing) return { success: false, error: "Already following this project" }
+
+  await db.insert(projectSubscriptions).values({ id: nanoid(), projectId, userId })
+  revalidatePath(`/projects`)
+  return { success: true }
+}
+
+export async function unsubscribeFromProject(projectId: string): Promise<ActionResult> {
+  const userId = await getUserId()
+
+  const { projectSubscriptions } = await import("@/lib/db/schema")
+
+  await db
+    .delete(projectSubscriptions)
+    .where(and(eq(projectSubscriptions.projectId, projectId), eq(projectSubscriptions.userId, userId)))
+
+  revalidatePath(`/projects`)
+  return { success: true }
+}
+

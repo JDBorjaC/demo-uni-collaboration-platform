@@ -1,8 +1,11 @@
-import { getCategories } from "@/lib/queries"
+import { getCategories, getUniversityAffiliations } from "@/lib/queries"
 import { ProjectForm } from "@/components/project-form"
 
 export default async function NewProjectPage() {
-  const categories = await getCategories()
+  const [categories, affiliations] = await Promise.all([
+    getCategories(),
+    getUniversityAffiliations(),
+  ])
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
@@ -11,7 +14,7 @@ export default async function NewProjectPage() {
         Your project will start as a draft. Submit it for review once it's ready to publish.
       </p>
       <div className="mt-6">
-        <ProjectForm categories={categories} />
+        <ProjectForm categories={categories} affiliations={affiliations} />
       </div>
     </div>
   )

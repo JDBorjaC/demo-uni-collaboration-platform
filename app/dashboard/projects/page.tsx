@@ -16,11 +16,9 @@ export default async function MyProjectsPage() {
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">My projects</h1>
           <p className="mt-1 text-sm text-muted-foreground">Projects you lead, from draft to published.</p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/projects/new">
-            <Plus className="size-4" />
-            New project
-          </Link>
+        <Button render={<Link href="/dashboard/projects/new" />} nativeButton={false}>
+          <Plus className="size-4" />
+          New project
         </Button>
       </div>
 

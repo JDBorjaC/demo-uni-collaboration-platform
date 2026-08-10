@@ -58,6 +58,9 @@ export const universityAffiliations = pgTable("university_affiliations", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   domain: text("domain").notNull().unique(),
+  type: text("type", { enum: ["university", "company"] })
+    .notNull()
+    .default("university"),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 })
 
@@ -67,11 +70,15 @@ export const profiles = pgTable("profiles", {
     .notNull()
     .unique()
     .references(() => user.id, { onDelete: "cascade" }),
-  role: text("role", { enum: ["student", "faculty", "admin"] })
+  role: text("role", {
+    enum: ["student", "project_leader", "collaborator", "moderator", "admin", "external_expert"],
+  })
     .notNull()
     .default("student"),
   bio: text("bio"),
   avatarUrl: text("avatarUrl"),
+  institutionalEmail: text("institutionalEmail"),
+  skills: jsonb("skills").$type<string[]>(),
   universityAffiliationId: text("universityAffiliationId").references(() => universityAffiliations.id, {
     onDelete: "set null",
   }),
@@ -96,10 +103,15 @@ export const projects = pgTable("projects", {
   slug: text("slug").notNull().unique(),
   summary: text("summary").notNull(),
   description: text("description").notNull(),
+  objectives: text("objectives"),
+  collaborationNeeds: jsonb("collaborationNeeds").$type<string[]>(),
   leaderId: text("leaderId")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   categoryId: text("categoryId").references(() => categories.id, { onDelete: "set null" }),
+  universityAffiliationId: text("universityAffiliationId").references(() => universityAffiliations.id, {
+    onDelete: "set null",
+  }),
   status: text("status", {
     enum: ["draft", "pending_review", "published", "rejected", "archived"],
   })
@@ -191,6 +203,9 @@ export const contributions = pgTable("contributions", {
     .references(() => projectMembers.id, { onDelete: "cascade" }),
   title: text("title").notNull(),
   description: text("description").notNull(),
+  type: text("type", { enum: ["update", "milestone", "resource", "report"] })
+    .notNull()
+    .default("update"),
   contentUrl: text("contentUrl"),
   status: text("status", { enum: ["submitted", "approved", "rejected", "withdrawn"] })
     .notNull()
@@ -244,6 +259,8 @@ export const auditLogs = pgTable("audit_logs", {
   action: text("action").notNull(),
   entityType: text("entityType").notNull(),
   entityId: text("entityId").notNull(),
+  reason: text("reason"),
+  previousData: jsonb("previousData"),
   metadata: jsonb("metadata"),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 })
