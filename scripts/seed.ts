@@ -10,6 +10,7 @@
  */
 
 import { drizzle } from "drizzle-orm/node-postgres"
+import { sql } from "drizzle-orm"
 import { Pool } from "pg"
 import { nanoid } from "nanoid"
 import * as schema from "../lib/db/schema"
@@ -38,16 +39,11 @@ function slugify(title: string, suffix?: string) {
   )
 }
 
-/** Hash a password exactly as Better Auth does (argon2id via the crypto shim) */
+import { hashPassword as betterAuthHashPassword } from "better-auth/crypto"
+
+/** Hash a password exactly as Better Auth does */
 async function hashPassword(password: string): Promise<string> {
-  // Better Auth uses argon2id. For seed purposes we use a bcrypt-compatible
-  // placeholder that Better Auth will NOT accept for real sign-in.
-  // Replace this with a real argon2 hash if you need sign-in to work.
-  // To get real hashes: run the app, sign up each user, then copy the hash.
-  //
-  // For demo purposes we store a recognisable string so the seed can run
-  // without native crypto libraries.
-  return `$argon2id$v=19$m=65536,t=3,p=4$SEEDONLY$NOTAREALPASSWORDHASH_${password}`
+  return await betterAuthHashPassword(password)
 }
 
 // ---------------------------------------------------------------------------
@@ -56,6 +52,30 @@ async function hashPassword(password: string): Promise<string> {
 
 async function seed() {
   console.log("🌱 Starting seed…\n")
+
+  console.log("🧹 Cleaning existing data…")
+  await db.execute(sql`
+    TRUNCATE TABLE 
+      "audit_logs",
+      "notifications",
+      "moderation_reviews",
+      "contribution_approvals",
+      "contributions",
+      "project_members",
+      "collaboration_applications",
+      "project_subscriptions",
+      "project_status_history",
+      "projects",
+      "categories",
+      "profiles",
+      "verification",
+      "account",
+      "session",
+      "user",
+      "university_affiliations"
+    CASCADE;
+  `)
+  console.log("✨ Tables cleaned.\n")
 
   // -----------------------------------------------------------------------
   // 1. University Affiliations (3 institutions)
@@ -710,10 +730,8 @@ async function seed() {
   console.log("   valentina@uniandes.edu.co → rol: collaborator")
   console.log("   camila@unal.edu.co    → rol: student")
   console.log("   jpierce@techcorp.io   → rol: external_expert")
-  console.log("\n⚠️  IMPORTANTE: El script seed inserta un hash de contraseña de demostración")
-  console.log("   que NO es compatible con Better Auth. Para usar estos usuarios en la app,")
-  console.log("   debes registrarlos manualmente con el email correspondiente o actualizar")
-  console.log("   los hashes con argon2id real. Consulta DEPLOYMENT.md para más detalles.")
+  console.log("\n✅ Contraseñas generadas con hashes reales compatibles con Better Auth.")
+  console.log("   Puedes iniciar sesión con la contraseña 'Demo1234!' para las cuentas creadas.")
 
   await pool.end()
 }
